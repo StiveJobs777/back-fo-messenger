@@ -21,6 +21,8 @@ model User {
   password String
   createAt DateTime @default(now())
   posts    Post[]
+  sentMessages     Message[] @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
 }
 
 model Post {
@@ -32,4 +34,14 @@ model Post {
   authorId Int
   // Описание связи: поле authorId ссылается на id в модели User
   author   User @relation(fields: [authorId], references: [id])
+}
+
+model Message {
+  id         Int      @id @default(autoincrement())
+  text       String
+  createdAt  DateTime @default(now())
+  senderId   Int
+  receiverId Int
+  sender   User @relation("SentMessages", fields: [senderId], references: [id])
+  receiver User @relation("ReceivedMessages", fields: [receiverId], references: [id])
 }

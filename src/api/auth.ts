@@ -75,7 +75,7 @@ router.post(
 					id: user.id,
 					username: user.username,
 					email: user.email,
-					createdAt: user.createdAt,
+					createdAt: user.createAt,
 				},
 			});
 		} catch (e) {
@@ -178,7 +178,7 @@ router.post(
 					id: newUser.id,
 					username: newUser.username,
 					email: newUser.email,
-					createdAt: newUser.createdAt,
+					// createdAt: newUser.createdAt,
 				},
 			});
 		} catch (e) {
@@ -220,7 +220,7 @@ router.get("/verify", async function (req: Request, res: Response) {
 				id: user.id,
 				username: user.username,
 				email: user.email,
-				createdAt: user.createdAt,
+				createdAt: user.createAt,
 			},
 		});
 	} catch (e) {
