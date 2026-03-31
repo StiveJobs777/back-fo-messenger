@@ -2,7 +2,6 @@ import prisma from "../db";
 import jwt from "jsonwebtoken";
 import express, { Request, Response } from "express";
 
-// Расширяем тип Request
 declare module "express-serve-static-core" {
 	interface Request {
 		userId?: number;
