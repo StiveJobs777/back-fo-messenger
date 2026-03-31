@@ -17,7 +17,7 @@ interface LoginBody {
 }
 //перенести в конфиг
 const JWT_SECRET = process.env.JWT_SECRET || "your-super-secret-jwt-key";
-const JWT_EXPIRES_IN = "7d"; // Токен действителен 7 дней
+const JWT_EXPIRES_IN = "7d"; // токен 7 дней
 
 const router = express.Router();
 
@@ -118,7 +118,7 @@ router.post(
 				});
 			}
 
-			// Проверка длины пароля
+			// проверка длины пароля
 			if (password.length < 6) {
 				return res.status(400).json({
 					error: "Password must be at least 6 characters long",

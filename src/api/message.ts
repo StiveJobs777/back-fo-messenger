@@ -52,7 +52,7 @@ async function authMiddleware(
 			});
 		}
  
-		// Устанавливаем userId в request для использования в роутах
+		// устанавливаем userId в request для использования в роутах
 		req.userId = user.id;
  
 		next();
@@ -71,7 +71,7 @@ async function authMiddleware(
 	}
 }
 
-// POST /api/messages/send — отправить сообщение
+//отправить сообщение
 router.post(
 	"/send",
 	authMiddleware,
@@ -80,7 +80,7 @@ router.post(
 			const { text, receiverId } = req.body as SendMessageBody;
 			const senderId = req.userId!;
  
-			// 1. ВАЛИДАЦИЯ
+			// валидация
 			if (!text || !receiverId) {
 				return res.status(400).json({
 					error: "Text and receiverId are required",
@@ -99,7 +99,7 @@ router.post(
 				});
 			}
  
-			// 2. ПРОВЕРКА ПОЛУЧАТЕЛЯ
+			//ПРОВЕРКА ПОЛУЧАТЕЛЯ
 			const receiver = await prisma.user.findUnique({
 				where: { id: receiverId },
 			});
@@ -116,7 +116,7 @@ router.post(
 				});
 			}
  
-			// 3. СОЗДАНИЕ СООБЩЕНИЯ
+			//СОЗДАНИЕ СООБЩЕНИЯ
 			const message = await prisma.message.create({
 				data: {
 					text: text.trim(),
@@ -141,7 +141,7 @@ router.post(
 				},
 			});
  
-			// 4. ОТВЕТ
+			//ОТВЕТ
 			return res.status(201).json({
 				message: "Message sent successfully",
 				data: message,
@@ -202,7 +202,7 @@ router.get(
 	},
 );
 
-// получить список чатов текущего пользователя
+//получить список чатов текущего пользователя
 router.get(
 	"/chats",
 	authMiddleware,
@@ -210,7 +210,7 @@ router.get(
 		try {
 			const userId = req.userId!;
  
-			// Все сообщения где юзер участник
+			//все сообщения где юзер участник
 			const messages = await prisma.message.findMany({
 				where: {
 					OR: [{ senderId: userId }, { receiverId: userId }],
@@ -222,7 +222,7 @@ router.get(
 				orderBy: { createdAt: "desc" },
 			});
  
-			// Собираем уникальных собеседников с последним сообщением
+			//собираем уникальных собеседников с последним сообщением
 			const chatMap = new Map<number, { user: any; lastMessage: any }>();
  
 			for (const msg of messages) {
