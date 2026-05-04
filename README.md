@@ -1,0 +1,2 @@
+npm install @prisma/client bcrypt cors dotenv express jsonwebtoken pg ws
+npm install -D @types/bcrypt @types/cors @types/express @types/jsonwebtoken @types/node @types/pg @types/ws prisma ts-node-dev typescript
